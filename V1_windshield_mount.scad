@@ -75,23 +75,34 @@ module smooth_clip() {
             translate([-2,0,0])cylinder(d=clip_w,h=clip_h,center=false);
             translate([clip_l-clip_w-4,0,0]) cylinder(d=clip_w,h=clip_h,center=false);
             translate([-2,-clip_w/2,0]) cube([clip_l-clip_w-2,clip_w,clip_h]);
-            translate([(clip_l-2*clip_w-angle_l-2),-clip_w/2+tan(angle-5)*clip_h,0])rotate([angle,0,0])cube([angle_l,clip_w,clip_h]);
+//            translate([(clip_l-2*clip_w-angle_l-2),-clip_w/2+tan(angle-5)*clip_h,0])rotate([angle,0,0])cube([angle_l,clip_w,clip_h]); 
         }
 
-    //posts
+    //post cuts
     translate([0,0,-delta])cylinder(d=post_d+clear,h=2*gap_h,center=false);
     translate([-(post_d+clear)/2,0,-delta])cube([post_d+clear,clip_w,clip_h+3]);
 
+    //cuts to the edge
     translate([base_l-base_w,0,-delta])cylinder(d=post_d+clear,h=2*gap_h,center=false);    
     translate([base_l-base_w-(post_d+clear)/2,0,-delta])cube([post_d+clear,clip_w,clip_h+3]);
+
+    //cuts to allow for rounded inside corners
+    translate([-(post_d+clear)/2-1,clip_w/2-1,-delta])cube([(post_d+clear+2),2,clip_h+3]);
+    translate([base_l-base_w-(post_d+clear-1.7),clip_w/2-1,-delta])cube([(post_d+clear+2),2,clip_h+3]);
     
     //screw_holes
     translate([screw_offset_l,-screw_offset_ctr,-delta])cylinder(d=screw_d,h=2*gap_h,center=false);
     translate([base_l-base_w-post_d/2-screw_offset_l,-screw_offset_ctr,-delta])cylinder(d=screw_d,h=2*gap_h,center=false);
         
     }
+    color("red",1.0) translate([(post_d+clear)/2+1,clip_w/2-1,0]) cylinder(d=2,h=clip_h,center=false);
+    color("red",1.0) translate([-(post_d+clear)/2-1,clip_w/2-1.25,0]) cylinder(d=2,h=clip_h,center=false);
+
+    color("red",1.0) translate([clip_l-clip_w-4.4-(post_d+clear),clip_w/2-1,0]) cylinder(d=2,h=clip_h,center=false);
+    color("red",1.0) translate([clip_l-clip_w-2.4,clip_w/2-1.25,0]) cylinder(d=2,h=clip_h,center=false);
  }
  
 // base();
- translate([0,0,base_h]) color("green",1.0) clip();
+clip();
+// translate([0,0,base_h]) color("green",1.0) clip();
  
